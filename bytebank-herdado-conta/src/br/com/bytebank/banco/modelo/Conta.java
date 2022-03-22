@@ -12,7 +12,7 @@ public abstract class Conta {
 	private int numero;
 	private Cliente titular;
 	private static int total;
-	
+
 	/**
 	 * Construtor para inicializar o objeto Conta a partir da agencia e numero.
 	 * 
@@ -24,9 +24,9 @@ public abstract class Conta {
 		this.agencia = agencia;
 		this.numero = numero;
 	}
-	
+
 	public abstract void deposita(double valor);
-	
+
 	/**
 	 * Voce precisa ser maior do que o saldo.
 	 * 
@@ -39,20 +39,20 @@ public abstract class Conta {
 		}
 		this.saldo -= valor;
 	}
-		
+
 	public void tranfere(double valor, Conta destino) throws SaldoInsuficienteException {
 		this.saca(valor);
 		destino.deposita(valor);
 	}
-	
+
 	public double getSaldo() {
 		return this.saldo;
 	}
-	
+
 	public int getNumero() {
 		return this.numero;
 	}
-	
+
 	public void setNumero(int numero) {
 		if (numero <= 0) {
 			System.out.println("Nao pode valor <= 0");
@@ -60,11 +60,11 @@ public abstract class Conta {
 		}
 		this.numero = numero;
 	}
-	
+
 	public int getAgencia() {
 		return agencia;
 	}
-	
+
 	public void setAgencia(int agencia) {
 		if (agencia <= 0) {
 			System.out.println("Nao pode valor menor igual a 0");
@@ -76,15 +76,24 @@ public abstract class Conta {
 	public void setTitular(Cliente titular) {
 		this.titular = titular;
 	}
-	
+
 	public Cliente getTitular() {
 		return this.titular;
 	}
-	
+
 	public static int getTotal() {
 		return Conta.total;
 	}
-	
+
+	@Override
+	public boolean equals(Object ref) {
+		Conta outra = (Conta) ref;
+		if (this.agencia != outra.agencia && this.numero != outra.numero) {
+			return false;
+		}
+		return true;
+	}
+
 	@Override
 	public String toString() {
 		return ", Numero: " + this.numero + ", Agencia: " + this.agencia;
